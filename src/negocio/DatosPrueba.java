@@ -14,5 +14,6 @@ public class DatosPrueba {
         sistema.registrarEquipoEnMesa("Equipo Alpha");
         sistema.registrarEquipoEnMesa("Equipo Beta");
         sistema.registrarEquipoEnMesa("Equipo Gamma");
+        sistema.deshacerUltimaOperacion();
     }
 }
