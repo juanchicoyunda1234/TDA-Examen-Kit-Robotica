@@ -12,3 +12,15 @@ Estos 8 casos se ejecutan automaticamente con la opcion **9** del menu principal
 | 6 | Reposicion de piezas | Lista secuencial (modificar estado) | **KIT002** vuelve a `DISPONIBLE` tras reponer piezas. |
 | 7 | Turnos circulares en la mesa de ensamblaje | Lista circular (avanzar, eliminar actual, mostrar ronda) | La ronda avanza de Equipo Alpha a Equipo Beta y luego a Equipo Gamma; Equipo Gamma se elimina de la rotacion; la ronda final queda con Alpha y Beta. |
 | 8 | Validacion al eliminar del inventario | Lista secuencial (eliminar con validacion) | Eliminar **KIT001** mientras esta prestado se **rechaza**; eliminar **KIT004** (recien registrado, disponible) se **permite**. |
+
+Al final se imprime el historial completo (mas reciente primero) y el inventario final, para verificar de un vistazo que los 8 casos dejaron el sistema en el estado esperado.
+
+## Como repetir un caso a mano desde el menu
+
+1. **Inventario -> Registrar/Buscar/Mostrar/Modificar/Eliminar** para casos 1 y 8.
+2. **Prestamos -> Solicitar prestamo** para casos 1 y 2.
+3. **Cola -> Atender siguiente solicitud / Listar** para casos 2 y 4.
+4. **Deshacer ultima operacion critica** (opcion 8 del menu principal) para el caso 3.
+5. **Devoluciones** (con las piezas devueltas exactas o menores a las registradas) para los casos 4 y 5.
+6. **Mantenimiento -> Reponer piezas** para el caso 6.
+7. **Turnos de la mesa de ensamblaje** para el caso 7.
