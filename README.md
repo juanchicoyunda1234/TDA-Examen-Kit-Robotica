@@ -7,13 +7,13 @@ Prueba practica integradora de Estructura de Datos (Java, Visual Studio Code) - 
 | Integrante | Usuario GitHub | Responsabilidad | Estructura / modulo | Estado |
 |---|---|---|---|---|
 | Chico Yunda Juan Carlos (lider) | juanchicoyunda1234 | Liderazgo, integracion final, casos de prueba, README | Orquestacion (`negocio.SistemaKits`), `app.CasosPrueba` | Completo |
-| Torosina Armendariz Jeremy | _pendiente_ | Documentacion y diagramas | Diagrama de clases, seccion de estructuras del README | Completo |
-| Altamirano Segovia Jullisa | _pendiente_ | Documentacion e informe | Casos de prueba documentados (`docs/CASOS-DE-PRUEBA.md`), evidencia de ejecucion | Completo |
-| Romo Nunez Joseph | _pendiente_ | Backend - Modelo | Paquete `modelo` (clases de datos y nodos) | Completo |
-| Llamuca Abrajan Andres | _pendiente_ | Backend - Negocio | Paquete `estructuras` (las 6 estructuras) | Completo |
-| Tuza Quinatoa Noemi | _pendiente_ | Frontend - Integracion | Paquete `app` (`Main.java`, menu de consola) | Completo |
+| Torosina Armendariz Jeremy | WinoSpop | Documentacion y diagramas | Diagrama de clases, seccion de estructuras del README | Completo |
+| Altamirano Segovia Jullisa | jullisaaltamirano2017-boop | Documentacion e informe | Casos de prueba documentados (`docs/CASOS-DE-PRUEBA.md`), evidencia de ejecucion | Completo |
+| Romo Nunez Joseph | wayusa25-cmyk | Backend - Modelo | Paquete `modelo` (clases de datos y nodos) | Completo |
+| Llamuca Abrajan Andres | llamucaandres161 | Backend - Negocio | Paquete `estructuras` (las 6 estructuras) | Completo |
+| Tuza Quinatoa Noemi | edithtuza15-collab | Frontend - Integracion | Paquete `app` (`Main.java`, menu de consola) | Completo |
 
-Cada integrante debe completar su usuario de GitHub en esta tabla antes de programar, y reflejar en sus propios commits el modulo que tiene asignado.
+Cada integrante tiene registrado su usuario de GitHub en esta tabla y refleja en sus propios commits el modulo que tiene asignado.
 
 ## Caso asignado
 
