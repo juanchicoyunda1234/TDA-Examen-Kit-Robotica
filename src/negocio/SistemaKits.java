@@ -114,6 +114,67 @@ public class SistemaKits {
         solicitudes.listar();
     }
 
+    public String procesarDevolucion(String codigoKit, int piezasDevueltas) {
+        KitRobotica kit = inventario.buscarPorCodigo(codigoKit);
+        if (kit == null) {
+            return "KIT_NO_EXISTE";
+        }
+        if (kit.getEstado() != EstadoKit.PRESTADO) {
+            return "KIT_NO_PRESTADO";
+        }
+        Prestamo prestamo = prestamos.buscarPorKit(codigoKit);
+        int turno = siguienteTurno();
+        int faltantes = kit.getPiezasRegistradas() - piezasDevueltas;
+        prestamos.eliminarPorKit(codigoKit);
+        if (faltantes > 0) {
+            kit.setEstado(EstadoKit.MANTENIMIENTO);
+            historial.registrarEvento(new EventoHistorial(turno, "DEVOLUCION_FALTANTE", codigoKit, prestamo.getEquipo().getNombreEquipo(), "Faltan " + faltantes + " piezas, kit enviado a Mantenimiento"));
+            operaciones.apilar(new OperacionCritica("DEVOLUCION", codigoKit, EstadoKit.PRESTADO, prestamo, turno));
+            return "FALTANTE";
+        }
+        kit.setEstado(EstadoKit.DISPONIBLE);
+        historial.registrarEvento(new EventoHistorial(turno, "DEVOLUCION_COMPLETA", codigoKit, prestamo.getEquipo().getNombreEquipo(), "Devolucion completa, kit disponible"));
+        operaciones.apilar(new OperacionCritica("DEVOLUCION", codigoKit, EstadoKit.PRESTADO, prestamo, turno));
+        return "COMPLETA";
+    }
+
+    public boolean reponerPiezas(String codigoKit) {
+        KitRobotica kit = inventario.buscarPorCodigo(codigoKit);
+        if (kit == null || kit.getEstado() != EstadoKit.MANTENIMIENTO) {
+            return false;
+        }
+        kit.setEstado(EstadoKit.DISPONIBLE);
+        int turno = siguienteTurno();
+        historial.registrarEvento(new EventoHistorial(turno, "REPOSICION_PIEZAS", codigoKit, "-", "Piezas repuestas, kit disponible nuevamente"));
+        return true;
+    }
+
+    public void mostrarKitsEnMantenimiento() {
+        inventario.mostrarEnMantenimiento();
+    }
+
+    public String deshacerUltimaOperacion() {
+        OperacionCritica operacion = operaciones.desapilar();
+        if (operacion == null) {
+            return "PILA_VACIA";
+        }
+        KitRobotica kit = inventario.buscarPorCodigo(operacion.getCodigoKit());
+        if (kit == null) {
+            return "KIT_NO_EXISTE";
+        }
+        int turno = siguienteTurno();
+        if (operacion.getTipo().equals("PRESTAMO")) {
+            prestamos.eliminarPorKit(operacion.getCodigoKit());
+            kit.setEstado(operacion.getEstadoAnterior());
+            historial.registrarEvento(new EventoHistorial(turno, "DESHACER_PRESTAMO", operacion.getCodigoKit(), operacion.getPrestamoAfectado().getEquipo().getNombreEquipo(), "Prestamo revertido"));
+        } else {
+            kit.setEstado(operacion.getEstadoAnterior());
+            prestamos.insertar(operacion.getPrestamoAfectado());
+            historial.registrarEvento(new EventoHistorial(turno, "DESHACER_DEVOLUCION", operacion.getCodigoKit(), operacion.getPrestamoAfectado().getEquipo().getNombreEquipo(), "Devolucion revertida"));
+        }
+        return operacion.getTipo();
+    }
+
     public void registrarEquipoEnMesa(String equipo) {
         mesaEnsamblaje.insertarEquipo(equipo);
         int turno = siguienteTurno();
